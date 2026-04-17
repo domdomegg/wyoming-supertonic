@@ -23,6 +23,10 @@ use helper::{Style, TextToSpeech, load_text_to_speech, load_voice_style};
 
 const CHUNK_SAMPLES: usize = 4096;
 
+/// Languages Supertonic 2 supports. Keep in sync with `helper::AVAILABLE_LANGS`.
+const SUPPORTED_LANGS: &[&str] = &["en", "ko", "es", "pt", "fr"];
+const DEFAULT_LANG: &str = "en";
+
 /// Turn a Supertonic voice ID (e.g. "F2") into a human label (e.g. "Female 2").
 fn voice_description(id: &str) -> String {
     let mut chars = id.chars();
@@ -173,6 +177,7 @@ async fn handle_synthesize(
     write_half: &mut tokio::net::tcp::OwnedWriteHalf,
     text: &str,
     voice_name: &str,
+    lang: &str,
     tts: &Arc<Mutex<TextToSpeech>>,
     voices: &Arc<VoiceRegistry>,
     cfg: &Config,
@@ -194,7 +199,7 @@ async fn handle_synthesize(
 
     let samples = {
         let mut guard = tts.lock().await;
-        let (wav, _dur) = guard.call(text, "en", &style, cfg.total_steps, cfg.model_speed, 0.3)?;
+        let (wav, _dur) = guard.call(text, lang, &style, cfg.total_steps, cfg.model_speed, 0.3)?;
         wav
     };
 
@@ -235,7 +240,7 @@ fn build_info(voices: &VoiceRegistry) -> Value {
                 "description": voice_description(id),
                 "attribution": {"name": "Supertone", "url": "https://huggingface.co/Supertone/supertonic-2"},
                 "installed": true,
-                "languages": ["en"],
+                "languages": SUPPORTED_LANGS,
                 "version": "v2"
             })
         })
@@ -282,7 +287,24 @@ async fn handle_client(
                     .and_then(|v| v.get("name"))
                     .and_then(|n| n.as_str())
                     .unwrap_or(&cfg.default_voice);
-                handle_synthesize(&mut write_half, text, voice_name, &tts, &voices, &cfg).await?;
+                // Accept language from `data.voice.language` or `data.language`.
+                // Fall back to the default if missing or unsupported.
+                let lang_candidate = data
+                    .and_then(|d| d.get("voice"))
+                    .and_then(|v| v.get("language"))
+                    .and_then(|l| l.as_str())
+                    .or_else(|| {
+                        data.and_then(|d| d.get("language"))
+                            .and_then(|l| l.as_str())
+                    })
+                    .unwrap_or(DEFAULT_LANG);
+                let lang = if SUPPORTED_LANGS.contains(&lang_candidate) {
+                    lang_candidate
+                } else {
+                    DEFAULT_LANG
+                };
+                handle_synthesize(&mut write_half, text, voice_name, lang, &tts, &voices, &cfg)
+                    .await?;
             }
             _ => {}
         }

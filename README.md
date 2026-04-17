@@ -26,7 +26,7 @@ I think **F2** (Female 2) is the best and is the default if you don't choose one
 | **Generation speed** | 🏆 slightly faster ([numbers](#performance)) | slightly slower |
 | **Memory usage** | 🟰 ~300 MB | 🟰 ~300 MB |
 | **Privacy** | 🟰 fully local | 🟰 fully local |
-| **Multilingual support** | English-focused | 🏆 broader multilingual support |
+| **Multilingual support** | 5 languages (en, ko, es, pt, fr) | 🏆 50+ languages |
 
 ¹: More natural, expressive, smoother, and better at handling abbreviations like "$10M", "5 km" or "Fri 17 Apr, 2026."
 
