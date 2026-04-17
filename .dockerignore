@@ -1,0 +1,8 @@
+target/
+assets/
+results/
+.git/
+.github/
+README.md
+LICENSE
+NOTICE

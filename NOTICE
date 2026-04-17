@@ -1,0 +1,15 @@
+wyoming-supertonic
+Copyright 2026 Adam Jones
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License in the LICENSE file or at http://www.apache.org/licenses/LICENSE-2.0.
+
+This product includes software adapted from Supertonic
+(https://github.com/supertone-inc/supertonic), specifically the TTS inference
+pipeline in `src/helper.rs`, copyright Supertone Inc., also licensed under the
+Apache License, Version 2.0.
+
+The Supertonic-2 ONNX model weights distributed with runtime images are
+downloaded from https://huggingface.co/Supertone/supertonic-2 and are subject
+to the OpenRAIL license terms stated on that repository.

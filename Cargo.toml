@@ -1,0 +1,54 @@
+[package]
+name = "wyoming-supertonic"
+version = "1.0.0"
+edition = "2024"
+description = "Wyoming protocol TTS server backed by Supertonic-2 (ONNX)."
+license = "Apache-2.0"
+repository = "https://github.com/domdomegg/wyoming-supertonic"
+readme = "README.md"
+
+[dependencies]
+# ONNX Runtime — current
+ort = "2.0.0-rc.10"
+
+# Array processing (must match ort's transitive version)
+ndarray = { version = "0.17", features = ["rayon"] }
+rand = "0.8"
+rand_distr = "0.4"
+
+# Parallel processing
+rayon = "1.10"
+
+# Audio processing
+hound = "3.5"
+rustfft = "6.2"
+
+# JSON serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Async runtime for the Wyoming server
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "io-util", "sync"] }
+
+# Error handling
+anyhow = "1.0"
+
+# Pitch-preserving audio time-stretch (wraps the Signalsmith Stretch C++ library)
+signalsmith-stretch = "0.1"
+
+# Unicode normalization
+unicode-normalization = "0.1"
+
+# Regular expressions
+regex = "1.10"
+
+# System calls
+libc = "0.2"
+
+[[bin]]
+name = "wyoming-supertonic"
+path = "src/main.rs"
+
+[profile.release]
+lto = "thin"
+strip = "symbols"

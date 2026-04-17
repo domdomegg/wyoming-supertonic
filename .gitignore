@@ -1,0 +1,15 @@
+# Rust
+target/
+**/*.rs.bk
+*.pdb
+
+# Downloaded model assets (fetched via scripts/download-assets.sh)
+assets/
+
+# Editor
+.vscode/
+.idea/
+.DS_Store
+
+# Output of local runs
+results/
