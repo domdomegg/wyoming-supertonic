@@ -126,6 +126,17 @@ Synthesis time on an Intel i5-8250U (2018-era ULV laptop CPU), CPU-only, voice F
 
 </details>
 
+## Releases
+
+Versions follow the [semantic versioning spec](https://semver.org/).
+
+To release:
+
+1. Bump the `version` field in `Cargo.toml`
+2. Commit: `git commit -am "Bump to vX.Y.Z"`
+3. Tag + push: `git tag vX.Y.Z && git push --follow-tags`
+4. Wait for GitHub Actions to build and publish the multi-arch image to `ghcr.io/domdomegg/wyoming-supertonic:vX.Y.Z` (and move the `latest`, `vX.Y`, `vX` tags).
+
 ## Licence
 
 This project is licensed under the [Apache License 2.0](LICENSE). `src/helper.rs` is adapted from the [Supertonic reference Rust implementation](https://github.com/supertone-inc/supertonic/tree/main/rust), also Apache-2.0. See `NOTICE` for attribution.
