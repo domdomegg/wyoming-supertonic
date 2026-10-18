@@ -1382,7 +1382,7 @@ dependencies = [
 
 [[package]]
 name = "wyoming-supertonic"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "anyhow",
  "hound",
