@@ -85,7 +85,7 @@ All configuration is via environment variables. Defaults are sensible.
 
 | Variable | Default | Description |
 |---|---|---|
-| `PORT` | `10220` | TCP port to listen on |
+| `PORT` | `10220` | TCP port to listen on (all IPv4 and IPv6 interfaces) |
 | `SUPERTONIC_DEFAULT_VOICE` | `F2` | Voice used when a client doesn't specify one. One of `F1`–`F5` (female) or `M1`–`M5` (male). |
 | `TOTAL_STEPS` | `3` | Diffusion denoising steps. Higher = better quality, slower. Range 1–20. |
 | `TRANSFORM_SPEED` | `1.4` | Speaking rate, applied as a pitch-preserving time-stretch to the rendered audio. `1.0` is natural, `1.4` is a snappy assistant pace, `1.8` is fast. **Prefer this knob.** |
