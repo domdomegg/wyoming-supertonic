@@ -373,7 +373,7 @@ async fn main() -> Result<()> {
     });
     let tts = Arc::new(Mutex::new(tts));
 
-    let addr = format!("0.0.0.0:{}", port);
+    let addr = format!("[::]:{}", port);
     let listener = TcpListener::bind(&addr).await?;
     eprintln!("Listening on {}", addr);
 
